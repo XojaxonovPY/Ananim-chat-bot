@@ -1,0 +1,205 @@
+# Russian (Russia) translations for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-03-05 12:46+0300\n"
+"PO-Revision-Date: 2025-03-01 07:47+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ru_RU\n"
+"Language-Team: ru_RU <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
+
+#: bot/handler/chats.py:24
+#, fuzzy
+msgid "You have to register first"
+msgstr "Вы не зарегистрированы!"
+
+#: bot/handler/chats.py:28 bot/handler/registration.py:38
+msgid "Enter password:"
+msgstr "Введите пароль:"
+
+#: bot/handler/chats.py:38
+msgid "🇺🇿 City"
+msgstr "🇺🇿 Город"
+
+#: bot/handler/chats.py:38
+msgid "👥 Send message user"
+msgstr "👥 Отправить сообщение пользователю"
+
+#: bot/handler/chats.py:38 bot/handler/main_handler.py:24
+#: bot/handler/registration.py:51
+msgid "◀️ Back"
+msgstr "◀️ Назад"
+
+#: bot/handler/chats.py:40
+msgid "🔎Search"
+msgstr "🔎Поиск"
+
+#: bot/handler/chats.py:43
+msgid "Invalid password"
+msgstr "Неверный пароль"
+
+#: bot/handler/chats.py:47
+#, fuzzy
+msgid "Search users"
+msgstr "Список пользователей"
+
+#: bot/handler/chats.py:48
+msgid "✅ Main menu:"
+msgstr "✅ Главное меню:"
+
+#: bot/handler/chats.py:56
+msgid "Enter username"
+msgstr "Введите имя пользователя"
+
+#: bot/handler/chats.py:65
+msgid "❌ End Chat"
+msgstr "❌ Завершить чат"
+
+#: bot/handler/chats.py:69
+msgid "🚫 No such user found!"
+msgstr "🚫 Такого пользователя не найдено!"
+
+#: bot/handler/chats.py:89
+msgid "✅ End chat!"
+msgstr "✅ Чат завершен!"
+
+#: bot/handler/chats_setting.py:17
+msgid "✅Yes"
+msgstr "✅Да"
+
+#: bot/handler/chats_setting.py:17
+msgid "❌NO"
+msgstr "❌НЕТ"
+
+#: bot/handler/chats_setting.py:20
+msgid "Do you delete your chat?"
+msgstr "Вы удаляете свой чат?"
+
+#: bot/handler/chats_setting.py:30 bot/handler/chats_setting.py:77
+msgid "Your not register!"
+msgstr "Вы не зарегистрированы!"
+
+#: bot/handler/chats_setting.py:32
+msgid "✅ Chat is deleted"
+msgstr "✅ Чат удален"
+
+#: bot/handler/chats_setting.py:36
+msgid "✅ Thanks for staying on our channel!"
+msgstr "✅Спасибо, что остаетесь на нашем канале!"
+
+#: bot/handler/chats_setting.py:46
+msgid "Which one you want to change?"
+msgstr "Какой из них вы хотите изменить?"
+
+#: bot/handler/chats_setting.py:53 bot/handler/registration.py:27
+msgid "🧑 Man"
+msgstr "🧑 Мужчина"
+
+#: bot/handler/chats_setting.py:53 bot/handler/registration.py:27
+msgid "👩‍🦰 Women"
+msgstr "👩‍🦰 Женщина"
+
+#: bot/handler/chats_setting.py:61 bot/handler/chats_setting.py:63
+msgid "Enter new value"
+msgstr "Введите новое значение"
+
+#: bot/handler/chats_setting.py:88
+msgid "No information"
+msgstr "Нет информации"
+
+#: bot/handler/chats_setting.py:89
+#, fuzzy
+msgid "Datas fetched"
+msgstr "Данные сохранены"
+
+#: bot/handler/city.py:17 bot/handler/city.py:33 bot/handler/city.py:52
+msgid "◀️Back"
+msgstr "◀️ Назад"
+
+#: bot/handler/city.py:19
+#, fuzzy
+msgid "Chose city:"
+msgstr "Введите город:"
+
+#: bot/handler/city.py:30
+msgid "prev"
+msgstr "предыдущий"
+
+#: bot/handler/city.py:31
+msgid "next"
+msgstr "следующий"
+
+#: bot/handler/city.py:34 bot/handler/city.py:53
+msgid "List users"
+msgstr "Список пользователей"
+
+#: bot/handler/city.py:44 bot/handler/city.py:63
+#, fuzzy
+msgid "Invalid selection"
+msgstr "Неверный пароль"
+
+#: bot/handler/main_handler.py:17 bot/handler/main_handler.py:46
+msgid "Registration"
+msgstr "Регистрация"
+
+#: bot/handler/main_handler.py:17 bot/handler/main_handler.py:46
+msgid "🇷🇺 🇺🇿 🇬🇧 Language"
+msgstr "🇷🇺 🇺🇿 🇬🇧 Язык"
+
+#: bot/handler/main_handler.py:17 bot/handler/main_handler.py:46
+msgid "💬 My chat"
+msgstr "💬 Мой чат"
+
+#: bot/handler/main_handler.py:19
+msgid "Welcome chat bot"
+msgstr "Приветственный чат-бот"
+
+#: bot/handler/main_handler.py:27
+msgid "Chose language:"
+msgstr "Выберите язык"
+
+#: bot/handler/main_handler.py:41
+msgid "❌ Iltimos, menyudan tilni tanlang!"
+msgstr ""
+
+#: bot/handler/registration.py:22
+msgid "Enter username:"
+msgstr "Введите имя пользователя:"
+
+#: bot/handler/registration.py:31
+msgid "Enter gender:"
+msgstr "Введите пол:"
+
+#: bot/handler/registration.py:47
+msgid "Enter city:"
+msgstr "Введите город:"
+
+#: bot/handler/registration.py:51
+msgid "💬 Chats"
+msgstr "💬 Чаты"
+
+#: bot/handler/registration.py:68
+msgid "You are already registered"
+msgstr "Вы уже зарегистрированы"
+
+#: bot/handler/registration.py:71
+msgid "Data saved"
+msgstr "Данные сохранены"
+
+#~ msgid "❌ Please select a language from the menu"
+#~ msgstr "❌ Пожалуйста, выберите язык из меню"
+
+#~ msgid "⬅️ Back"
+#~ msgstr "◀️ Назад"
+

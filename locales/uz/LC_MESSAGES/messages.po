@@ -1,0 +1,204 @@
+# Uzbek translations for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-03-05 12:46+0300\n"
+"PO-Revision-Date: 2025-03-01 07:47+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: uz\n"
+"Language-Team: uz <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
+
+#: bot/handler/chats.py:24
+#, fuzzy
+msgid "You have to register first"
+msgstr "Siz ro'yxatdan o'tmagansiz!"
+
+#: bot/handler/chats.py:28 bot/handler/registration.py:38
+msgid "Enter password:"
+msgstr "Parolni kiriting:"
+
+#: bot/handler/chats.py:38
+msgid "🇺🇿 City"
+msgstr "🇺🇿 Shahar"
+
+#: bot/handler/chats.py:38
+msgid "👥 Send message user"
+msgstr "👥 Foydalanuvchiga xabar yuborish"
+
+#: bot/handler/chats.py:38 bot/handler/main_handler.py:24
+#: bot/handler/registration.py:51
+msgid "◀️ Back"
+msgstr "◀️ Ortga"
+
+#: bot/handler/chats.py:40
+msgid "🔎Search"
+msgstr "🔎Qidiruv"
+
+#: bot/handler/chats.py:43
+msgid "Invalid password"
+msgstr "Noto‘g‘ri parol"
+
+#: bot/handler/chats.py:47
+#, fuzzy
+msgid "Search users"
+msgstr "foydalanuvchilar roʻyxati"
+
+#: bot/handler/chats.py:48
+msgid "✅ Main menu:"
+msgstr "✅ Asosiy menyu:"
+
+#: bot/handler/chats.py:56
+msgid "Enter username"
+msgstr "Foydalanuvchi nomini kiriting"
+
+#: bot/handler/chats.py:65
+msgid "❌ End Chat"
+msgstr "❌ Suhbatni tugatish"
+
+#: bot/handler/chats.py:69
+msgid "🚫 No such user found!"
+msgstr "🚫 Bunday foydalanuvchi topilmadi!"
+
+#: bot/handler/chats.py:89
+msgid "✅ End chat!"
+msgstr "✅ Suhbat tugadi!"
+
+#: bot/handler/chats_setting.py:17
+msgid "✅Yes"
+msgstr "✅Ha"
+
+#: bot/handler/chats_setting.py:17
+msgid "❌NO"
+msgstr "❌Yoq"
+
+#: bot/handler/chats_setting.py:20
+msgid "Do you delete your chat?"
+msgstr "Chatingizni o'chirib tashlaysizmi?"
+
+#: bot/handler/chats_setting.py:30 bot/handler/chats_setting.py:77
+msgid "Your not register!"
+msgstr "Siz ro'yxatdan o'tmagansiz!"
+
+#: bot/handler/chats_setting.py:32
+msgid "✅ Chat is deleted"
+msgstr "✅ Chat o'chirib tashlandi"
+
+#: bot/handler/chats_setting.py:36
+msgid "✅ Thanks for staying on our channel!"
+msgstr "✅ Kanalimizda qolganingiz uchun tashakkur"
+
+#: bot/handler/chats_setting.py:46
+msgid "Which one you want to change?"
+msgstr "Qaysi birini o'zgartirmoqchisiz?"
+
+#: bot/handler/chats_setting.py:53 bot/handler/registration.py:27
+msgid "🧑 Man"
+msgstr "🧑 Erkak"
+
+#: bot/handler/chats_setting.py:53 bot/handler/registration.py:27
+msgid "👩‍🦰 Women"
+msgstr "👩‍🦰 Ayol"
+
+#: bot/handler/chats_setting.py:61 bot/handler/chats_setting.py:63
+msgid "Enter new value"
+msgstr "Yangi qiymatni kiriting"
+
+#: bot/handler/chats_setting.py:88
+msgid "No information"
+msgstr "Ma'lumot yo'q"
+
+#: bot/handler/chats_setting.py:89
+#, fuzzy
+msgid "Datas fetched"
+msgstr "Ma'lumot saqlandi"
+
+#: bot/handler/city.py:17 bot/handler/city.py:33 bot/handler/city.py:52
+msgid "◀️Back"
+msgstr "◀️ Ortga"
+
+#: bot/handler/city.py:19
+#, fuzzy
+msgid "Chose city:"
+msgstr "Shaharni kiriting:"
+
+#: bot/handler/city.py:30
+msgid "prev"
+msgstr "oldingi"
+
+#: bot/handler/city.py:31
+msgid "next"
+msgstr "keyingisi"
+
+#: bot/handler/city.py:34 bot/handler/city.py:53
+msgid "List users"
+msgstr "foydalanuvchilar roʻyxati"
+
+#: bot/handler/city.py:44 bot/handler/city.py:63
+#, fuzzy
+msgid "Invalid selection"
+msgstr "Noto‘g‘ri parol"
+
+#: bot/handler/main_handler.py:17 bot/handler/main_handler.py:46
+msgid "Registration"
+msgstr "Ro‘yxatdan o‘tish"
+
+#: bot/handler/main_handler.py:17 bot/handler/main_handler.py:46
+msgid "🇷🇺 🇺🇿 🇬🇧 Language"
+msgstr "🇷🇺 🇺🇿 🇬🇧 Til"
+
+#: bot/handler/main_handler.py:17 bot/handler/main_handler.py:46
+msgid "💬 My chat"
+msgstr "💬 Mening chatim"
+
+#: bot/handler/main_handler.py:19
+msgid "Welcome chat bot"
+msgstr "Xush kelibsiz chat botga"
+
+#: bot/handler/main_handler.py:27
+msgid "Chose language:"
+msgstr "Tilni tanlang:"
+
+#: bot/handler/main_handler.py:41
+msgid "❌ Iltimos, menyudan tilni tanlang!"
+msgstr ""
+
+#: bot/handler/registration.py:22
+msgid "Enter username:"
+msgstr "Foydalanuvchi nomini kiriting:"
+
+#: bot/handler/registration.py:31
+msgid "Enter gender:"
+msgstr "Jinsingizni kiriting:"
+
+#: bot/handler/registration.py:47
+msgid "Enter city:"
+msgstr "Shaharni kiriting:"
+
+#: bot/handler/registration.py:51
+msgid "💬 Chats"
+msgstr "💬 Chatlar"
+
+#: bot/handler/registration.py:68
+msgid "You are already registered"
+msgstr "Siz allaqachon ro‘yxatdan o‘tgansiz"
+
+#: bot/handler/registration.py:71
+msgid "Data saved"
+msgstr "Ma'lumot saqlandi"
+
+#~ msgid "❌ Please select a language from the menu!"
+#~ msgstr "❌ Iltimos, menyudan tilni tanlang!"
+
+#~ msgid "⬅️ Back"
+#~ msgstr "◀️ Ortga"
+
