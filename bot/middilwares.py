@@ -1,6 +1,9 @@
 from aiogram import BaseMiddleware
-from aiogram.types import Message
+from aiogram.types import Message, InlineKeyboardButton
+from aiogram.utils.keyboard import InlineKeyboardBuilder
+
 from dp.model import Channel, City
+from bot.buttons.inline import inline_button_builder
 
 
 class CustomMiddleware(BaseMiddleware):
@@ -12,8 +15,10 @@ class CustomMiddleware(BaseMiddleware):
             response = await data.get('bot').get_chat_member(channel.channel_id , user_id)
             if not response.status in ["member", "creator" , 'admin']:
                 not_join_channels.append(channel)
-        data["not_join_channels"] = not_join_channels
-        return await handler(event, data)
+        if not_join_channels:
+            pass
+            data["not_join_channels"] = not_join_channels
+
 
 
 def users_format(city: str, page: int = 1):
@@ -22,49 +27,10 @@ def users_format(city: str, page: int = 1):
         return []
     users = users[10 * (page - 1): 10 * page]
     return users
-
-
-def is_number(text:str):
-    res=0
-    for i in text:
-        if i.isdigit():
-            res=i
+def is_str(cols):
+    res=' '.join(i for i in cols)
     return res
 
-
-
-uzbekistan_viloyatlari = [
-    "1) Toshkent shahar",
-    "2) Buxoro viloyati",
-    "3) Andijon viloyati",
-    "4) Farg‘ona viloyati",
-    "5) Jizzax viloyati",
-    "6) Xorazm viloyati",
-    "7) Navoiy viloyati",
-    "8) Namangan viloyati",
-    "9) Samarqand viloyati",
-    "10) Sirdaryo viloyati",
-    "11) Surxondaryo viloyati",
-    "12) Toshkent viloyati",
-    "13) Qashqadaryo viloyati",
-    "14) Qoraqalpog‘iston Respublikasi"
-]
-
-
-uzbekistan_viloyatlari2 = [
-        "Toshkent shahar",
-        "Buxoro viloyati",
-        "Andijon viloyati",
-        "Farg‘ona viloyati",
-        "Jizzax viloyati",
-        "Xorazm viloyati",
-        "Navoiy viloyati",
-        "Namangan viloyati",
-        "Samarqand viloyati",
-        "Sirdaryo viloyati",
-        "Surxondaryo viloyati",
-        "Toshkent viloyati",
-        "Qashqadaryo viloyati",
-        "Qoraqalpog‘iston Respublikasi"
-    ]
+cities = City.get_all(City.name)
+uzbekiston_viloyatlari = [city.name for city in cities]
 

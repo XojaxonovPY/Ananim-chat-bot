@@ -17,35 +17,16 @@ bot=Bot(token=BotConfig.TOKEN)
 
 @chat.message(F.text==__('💬 My chat'))
 @chat.message( F.text==__('💬 Chats'))
-async def chat_handler(message:Message,state:FSMContext):
-    user_id=message.chat.id
-    check=User.check_user(user_id)
-    if not check:
-        await message.answer(text=_('You have to register first'))
-        return
-    await state.set_state(States.chat_password)
-    await state.update_data(user_id=user_id)
-    await message.answer(text=_('Enter password:'))
-
-
-@chat.message(States.chat_password)
-@chat.message(F.text==__('◀️Back'))
 @chat.message(F.text==__('❌ End Chat'))
+@chat.message(F.text==__('◀️ Main back'))
 async def chat_handler(message:Message,state:FSMContext):
-    password=message.text
-    data=await state.get_data()
-    check_password=User.get(User.user_id,data.get('user_id'),User.password)
     text=[_('🇺🇿 City'),_('👥 Send message user'),_('◀️ Back'),]
     inline=InlineKeyboardBuilder()
     inline.add(InlineKeyboardButton(text=_('🔎Search'),switch_inline_query_current_chat=''))
     inline= inline.as_markup()
-    if password!=check_password:
-        await message.answer(text=_('Invalid password'))
-        return
     markup=reply_button_builder(text,(3,))
-    lang = await state.get_value('locale')
-    await state.clear()
-    await state.update_data({'locale': lang})
+    # lang = await state.get_value('locale')
+    # await state.update_data({'locale': lang})
     await message.answer(text=_('Search users'),reply_markup=inline)
     await message.answer(text=_('✅ Main menu:'),reply_markup=markup)
 
@@ -53,9 +34,10 @@ async def chat_handler(message:Message,state:FSMContext):
 @chat.message(F.text==__('👥 Send message user'))
 async def username_handler(message:Message,state:FSMContext):
     chat1_user=message.chat.id
+    markup=reply_button_builder(['◀️ Main back'],(1,))
     await state.set_state(States.chat_user)
     await state.update_data(chat1_user=chat1_user)
-    await message.answer(text=_('Enter username'))
+    await message.answer(text=_('Enter username'),reply_markup=markup)
 
 
 @chat.message(States.chat_user)
@@ -70,11 +52,13 @@ async def user_check(message: Message,state:FSMContext):
     if not chat2_user:
         await message.answer(_("🚫 No such user found!"))
         return
-    await state.update_data(chat2_user=chat2_user, chat1_user=chat1_user,username1=username1,username2=username2)
+    await state.update_data(chat2_user=chat2_user,username1=username1,username2=username2)
     await state.set_state(States.send_messages)
+    id_=User.get(User.username,username1,User.id)
     chats = {
         'chat_1_id': chat1_user,
         'chat_2_id': chat2_user,
+        'users_id':id_
     }
     Chat.save(chats)
     await message.answer(text=_(f'{username2} started a conversation with! Write a message now:'),reply_markup=markup)

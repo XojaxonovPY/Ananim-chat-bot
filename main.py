@@ -15,7 +15,7 @@ from dp.model import metadata
 from utils.env_data import BotConfig
 
 TOKEN = BotConfig.TOKEN
-engine = create_engine("postgresql+psycopg2://postgres:1@db:5432/postgres")
+# engine = create_engine("postgresql+psycopg2://postgres:1@db:5432/postgres")
 async def set_bot_commands(bot: Bot):
     commands = [
         BotCommand(command="/start", description="Starting bot."),
@@ -30,7 +30,7 @@ async def main() -> None:
     dp.update.middleware(FSMI18nMiddleware(i18n))
     bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     await set_bot_commands(bot)
-    metadata.create_all(engine)
+    # metadata.create_all(engine)
     await dp.start_polling(bot)
 
 if __name__ == "__main__":

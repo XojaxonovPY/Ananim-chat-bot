@@ -7,19 +7,19 @@ from bot.buttons.inline import inline_button_builder
 from bot.states import States
 from aiogram.utils.i18n import gettext as _
 from aiogram.utils.i18n import lazy_gettext as __
-from bot.middilwares import users_format,uzbekistan_viloyatlari2
+from bot.middilwares import users_format,uzbekiston_viloyatlari
 region=Router()
 
 
 @region.message(F.text==__('🇺🇿 City'))
+@region.message(F.text==__("◀️City back"))
 async def regions_handler(message:Message,state:FSMContext):
-    text=uzbekistan_viloyatlari2
-    text.append(_('◀️Back'))
+    text=uzbekiston_viloyatlari
     markup=reply_button_builder(text,(2,2,2,2,2,2,2))
     await message.answer(text=_('Chose city:'),reply_markup=markup)
 
 
-@region.message(F.text.in_(uzbekistan_viloyatlari2))
+@region.message(F.text.in_(uzbekiston_viloyatlari))
 async def category_handler(message: Message, state: FSMContext):
     city = message.text
     page = 1
@@ -30,7 +30,7 @@ async def category_handler(message: Message, state: FSMContext):
     buttons.append((_("prev"),f"pos_{page - 1}"))
     buttons.append((_("next"), f"pos_{page + 1}"))
     markup = inline_button_builder(buttons, size=(5, 5, 2))
-    markup1 = reply_button_builder([_("◀️Back")], (1,))
+    markup1 = reply_button_builder([_("◀️City back"),_('◀️ Main back')], (1,))
     await message.answer(text=_("List users"), reply_markup=markup1)
     await message.answer(text="\n".join(user_names), reply_markup=markup)
 
@@ -49,7 +49,7 @@ async def category_handler(callback:CallbackQuery, state: FSMContext):
         buttons.append(("prev", f"pos_{page - 1}"))
         buttons.append(("next", f"pos_{page + 1}"))
         markup = inline_button_builder(buttons, size=(5, 5, 2))
-        markup1 = reply_button_builder([_("◀️Back")], (1,))
+        markup1 = reply_button_builder([_("◀️City back")], (1,))
         await callback.message.answer(text=_("List users"), reply_markup=markup1)
         await callback.message.answer(text="\n".join(user_names), reply_markup=markup)
 
@@ -57,13 +57,15 @@ async def category_handler(callback:CallbackQuery, state: FSMContext):
 @region.callback_query(States.users)
 async def movie_choice(callback : CallbackQuery , state : FSMContext):
     pos = int(callback.data.split("_")[-1]) - 1
+    text=[_('👥 Send message user'),]
+    markup=reply_button_builder(text,(1,))
     data = await state.get_data()
     users = data.get('users', [])
     if pos < 0 or pos >= len(users):
         await callback.answer(_("Invalid selection"))
         return
     username = users[pos]
-    await callback.message.answer(text=f"User: {username}")
+    await callback.message.answer(text=f"User: {username}",reply_markup=markup)
 
 
 
