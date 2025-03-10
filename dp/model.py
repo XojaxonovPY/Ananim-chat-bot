@@ -1,4 +1,3 @@
-from sqlalchemy.testing.suite.test_reflection import users
 
 from dp.config import  Base,DB,CRUD,SessionLocal
 from sqlalchemy import Integer, String, ForeignKey, Text, BIGINT, TIMESTAMP, func, select

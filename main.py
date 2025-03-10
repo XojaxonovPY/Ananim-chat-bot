@@ -14,8 +14,10 @@ from aiogram.utils.i18n import I18n, FSMI18nMiddleware
 from dp.model import metadata
 from utils.env_data import BotConfig
 
+
 TOKEN = BotConfig.TOKEN
-# engine = create_engine("postgresql+psycopg2://postgres:1@db:5432/postgres")
+engine = create_engine("postgresql+psycopg2://postgres:1@db:5432/postgres")
+
 async def set_bot_commands(bot: Bot):
     commands = [
         BotCommand(command="/start", description="Starting bot."),
@@ -25,6 +27,7 @@ async def set_bot_commands(bot: Bot):
     ]
     await bot.set_my_commands(commands=commands)
 
+
 async def main() -> None:
     i18n = I18n(path='locales', default_locale='en', domain='messages')
     dp.update.middleware(FSMI18nMiddleware(i18n))
@@ -32,6 +35,7 @@ async def main() -> None:
     await set_bot_commands(bot)
     # metadata.create_all(engine)
     await dp.start_polling(bot)
+
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
