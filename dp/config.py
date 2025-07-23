@@ -1,61 +1,59 @@
 from sqlalchemy import create_engine
-from utils.env_data import DBConfig
-from sqlalchemy.orm import  DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import  insert, select, update, delete
+from utils.env_data import DBConfig
 
-class Base (DeclarativeBase):
+
+class Base(DeclarativeBase):
     pass
+
 
 class DB:
     engine = create_engine(DBConfig.DP_URL)
 
 
-engine=DB.engine
-
-
+engine = DB.engine
 
 SessionLocal = sessionmaker(engine)
+
+
 class CRUD:
 
     @classmethod
-    def save(cls, value):
+    def save(cls, **kwargs):
         with SessionLocal() as session:
-            query = insert(cls).values(**value)
-            session.execute(query)
+            obj = cls(**kwargs)
+            session.add(obj)
             session.commit()
+            session.refresh(obj)
+            return obj
 
     @classmethod
-    def ups(cls, user_id: int, **new_values):
+    def update(cls, filter_column, filter_value, **kwargs):
         with SessionLocal() as session:
-            stmt = update(cls).where(cls.user_id == user_id).values(**new_values)
-            session.execute(stmt)
+            stmt = session.query(cls).filter(filter_column == filter_value)
+            stmt.update(kwargs)
             session.commit()
+            return stmt.first()
 
     @classmethod
-    def dlt(cls, user_id):
+    def delete(cls, id):
         with SessionLocal() as session:
-            stmt = delete(cls).where(cls.user_id == user_id)
-            session.execute(stmt)
-            session.commit()
+            obj = session.get(cls, id)
+            if obj:
+                session.delete(obj)
+                session.commit()
+                return True
+            return False
 
     @classmethod
-    def get(cls, filter_column, filter_value, *columns):
+    def get(cls, filter_column, filter_value, one=False):
         with SessionLocal() as session:
-            query = select(*columns).select_from(cls).where(filter_column == filter_value)
-            result = session.execute(query).fetchone()
-            if not result:
-                return None
-            if len(columns) == 1:
-                return result[0]
-            return result
+            query = session.query(cls).filter(filter_column == filter_value)
+            return query.first() if one else query.all()
 
     @classmethod
-    def get_all(cls,*columns):
+    def get_all(cls):
         with SessionLocal() as session:
-            query = select(*columns)
-            result = session.execute(query).fetchall()
-            if result is None:
-                return 'Error'
-            return [row for row in result]
-
+            query = session.query(cls)
+            return query.all()

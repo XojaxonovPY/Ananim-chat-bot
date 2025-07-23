@@ -16,7 +16,7 @@ from utils.env_data import BotConfig
 
 
 TOKEN = BotConfig.TOKEN
-engine = create_engine("postgresql+psycopg2://postgres:1@db:5432/postgres")
+# engine = create_engine("postgresql+psycopg2://postgres:1@db:5432/postgres")
 
 async def set_bot_commands(bot: Bot):
     commands = [
