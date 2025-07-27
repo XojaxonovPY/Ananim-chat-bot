@@ -11,17 +11,13 @@ class User(Base, CRUD):
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(BIGINT, unique=True, nullable=False)
-    username: Mapped[str] = mapped_column(String(100), nullable=False)
+    name: Mapped[str] = mapped_column(String(100), nullable=False)
     gender: Mapped[str] = mapped_column(String(100), nullable=True)
     city_id: Mapped[int] = mapped_column(Integer, ForeignKey('cities.id'), nullable=True)
-    city = relationship("City", back_populates="users")
+    city = relationship("City", back_populates="users",lazy='selectin')
     chat=relationship('Chat',back_populates='user')
+    username:Mapped[str] = mapped_column(String(100), nullable=False)
 
-    @classmethod
-    def check_user(cls, user_id):
-        with SessionLocal() as session:
-            query = select(cls).where(cls.user_id == user_id)
-            return session.execute(query).scalar()
 
 
 class City(Base, CRUD):

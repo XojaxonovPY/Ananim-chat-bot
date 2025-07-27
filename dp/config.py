@@ -37,9 +37,9 @@ class CRUD:
             return stmt.first()
 
     @classmethod
-    def delete(cls, id):
+    def delete(cls, filter_colm, filter_value):
         with SessionLocal() as session:
-            obj = session.get(cls, id)
+            obj = session.query(cls).filter(filter_colm == filter_value)
             if obj:
                 session.delete(obj)
                 session.commit()
@@ -47,10 +47,10 @@ class CRUD:
             return False
 
     @classmethod
-    def get(cls, filter_column, filter_value, one=False):
+    def get(cls, filter_column, filter_value, all=True):
         with SessionLocal() as session:
             query = session.query(cls).filter(filter_column == filter_value)
-            return query.first() if one else query.all()
+            return query.first() if all else query.all()
 
     @classmethod
     def get_all(cls):
