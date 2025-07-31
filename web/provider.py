@@ -1,29 +1,28 @@
 import bcrypt
 from starlette.requests import Request
 from starlette.responses import Response
-from starlette_admin.auth import AdminConfig,AdminUser,AuthProvider
+from starlette_admin.auth import AdminConfig, AdminUser, AuthProvider
 from starlette_admin.exceptions import FormValidationError, LoginFailed
 
 from utils.env_data import Config as conf
 
 
-
 class UsernameAndPasswordProvider(AuthProvider):
 
     async def login(
-        self,
-        username: str,
-        password: str,
-        remember_me: bool,
-        request: Request,
-        response: Response) -> Response:
+            self,
+            username: str,
+            password: str,
+            remember_me: bool,
+            request: Request,
+            response: Response) -> Response:
         if len(username) < 3:
             """Form data validation"""
             raise FormValidationError(
                 {"username": "Ensure username has at least 03 characters"}
             )
 
-        if username == conf.web.ADMIN_USERNAME and bcrypt.checkpw(password.encode() , conf.web.ADMIN_PASSWORD.encode()):
+        if username == conf.web.ADMIN_USERNAME and bcrypt.checkpw(password.encode(), conf.web.ADMIN_PASSWORD.encode()):
             """Save `username` in session"""
             request.session.update({"username": username})
             return response
@@ -39,7 +38,7 @@ class UsernameAndPasswordProvider(AuthProvider):
 
     def get_admin_config(self, request: Request) -> AdminConfig:
         return AdminConfig(
-            app_title="Factor Bot Admin"
+            app_title="Anonim chat Bot Admin"
         )
 
     def get_admin_user(self, request: Request) -> AdminUser:

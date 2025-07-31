@@ -47,10 +47,12 @@ class CRUD:
             return False
 
     @classmethod
-    def get(cls, filter_column, filter_value, all=True):
+    def get(cls, filter_column, filter_value, all=False):
         with SessionLocal() as session:
             query = session.query(cls).filter(filter_column == filter_value)
-            return query.first() if all else query.all()
+            if all:
+                return query.all()
+            return query.first()
 
     @classmethod
     def get_all(cls):

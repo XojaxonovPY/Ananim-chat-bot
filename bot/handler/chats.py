@@ -1,116 +1,129 @@
-from aiogram.fsm.context import FSMContext
-from aiogram.types import Message, InlineKeyboardButton
-from aiogram.types import  InlineQuery, InlineQueryResultArticle, InputTextMessageContent
-from aiogram import Router, F
 from aiogram import Bot
-from aiogram.utils.keyboard import InlineKeyboardBuilder
-from bot.buttons.reply import reply_button_builder
-from bot.states import States
-from utils.env_data import BotConfig
-from dp.model import User,Chat,Message as m
+from aiogram import Router, F
+from aiogram.fsm.context import FSMContext
+from aiogram.types import InlineQuery, InlineQueryResultArticle, InputTextMessageContent
+from aiogram.types import Message, InlineKeyboardButton
 from aiogram.utils.i18n import gettext as _
 from aiogram.utils.i18n import lazy_gettext as __
-chat=Router()
 
-bot=Bot(token=BotConfig.TOKEN)
+from bot.buttons.inline import inline_button_builder
+from bot.buttons.reply import reply_button_builder
+from bot.states import States
+from dp.model import User, Chat, Message as M
+from utils.env_data import BotConfig
 
+chat = Router()
 
-@chat.message(F.text==__('💬 My chat'))
-@chat.message( F.text==__('💬 Chats'))
-@chat.message(F.text==__('❌ End Chat'))
-@chat.message(F.text==__('◀️ Main back'))
-async def chat_handler(message:Message,state:FSMContext):
-    text=[_('🇺🇿 City'),_('👥 Send message user'),_('◀️ Back'),]
-    inline=InlineKeyboardBuilder()
-    inline.add(InlineKeyboardButton(text=_('🔎Search'),switch_inline_query_current_chat=''))
-    inline= inline.as_markup()
-    markup=reply_button_builder(text,(3,))
-    # lang = await state.get_value('locale')
-    # await state.update_data({'locale': lang})
-    await message.answer(text=_('Search users'),reply_markup=inline)
-    await message.answer(text=_('✅ Main menu:'),reply_markup=markup)
+bot = Bot(token=BotConfig.TOKEN)
 
 
-@chat.message(F.text==__('👥 Send message user'))
-async def username_handler(message:Message,state:FSMContext):
-    chat1_user=message.chat.id
-    markup=reply_button_builder(['◀️ Main back'],(1,))
+@chat.message(F.text.in_([__('💬 My chat'), __('💬 Chats'), __('◀️ Main back'), __('✅ Chat ended.')]))
+async def chat_handler(message: Message, state: FSMContext):
+    query = User.get(User.user_id, message.chat.id)
+    if not query:
+        markup = await reply_button_builder(['Registration'])
+        await message.answer(text=_('Register first'), reply_markup=markup)
+        return
+
+    buttons = [InlineKeyboardButton(text=_('🔎 Search'), switch_inline_query_current_chat='')]
+    markup_inline = await inline_button_builder(buttons)
+    markup_reply = await reply_button_builder([_('🇺🇿 City'), _('👥 Send message user'), _('◀️ Back')], (3,))
+
+    await message.answer(text=_('Search users'), reply_markup=markup_inline)
+    await message.answer(text=_('✅ Main menu:'), reply_markup=markup_reply)
+
+
+@chat.message(F.text == __('👥 Send message user'))
+async def username_handler(message: Message, state: FSMContext):
+    markup = await reply_button_builder(['◀️ Main back'], (1,))
     await state.set_state(States.chat_user)
-    await state.update_data(chat1_user=chat1_user)
-    await message.answer(text=_('Enter username'),reply_markup=markup)
+    await message.answer(text=_('Enter username:'), reply_markup=markup)
 
 
 @chat.message(States.chat_user)
-async def user_check(message: Message,state:FSMContext):
-    username2=message.text
-    chat2_user=User.get(User.username,username2,User.user_id)
-    data=await state.get_data()
-    chat1_user=data.get('chat1_user')
-    text=[_("❌ End Chat")]
-    markup=reply_button_builder(text,(1,))
-    username1=User.get(User.user_id,chat1_user,User.username,)
-    if not chat2_user:
+async def user_check(message: Message, state: FSMContext):
+    chat1_id = message.chat.id
+    username2 = message.text.strip()
+
+    user1: User = User.get(User.user_id, chat1_id)
+    user2: User = User.get(User.name, username2)
+
+    if not user2:
         await message.answer(_("🚫 No such user found!"))
         return
-    await state.update_data(chat2_user=chat2_user,username1=username1,username2=username2)
+
+    await state.update_data(
+        chat1_id=user1.user_id,
+        chat2_id=user2.user_id,
+        nickname1=user1.name,
+        nickname2=user2.name
+    )
     await state.set_state(States.send_messages)
-    id_=User.get(User.username,username1,User.id)
-    chats = {
-        'chat_1_id': chat1_user,
-        'chat_2_id': chat2_user,
-        'users_id':id_
-    }
-    Chat.save(chats)
-    await message.answer(text=_(f'{username2} started a conversation with! Write a message now:'),reply_markup=markup)
+
+    # Chat yozish (ixtiyoriy)
+    Chat.save(
+        chat_1_id=user1.user_id,
+        chat_2_id=user2.user_id,
+        users_id=user1.id
+    )
+
+    markup = await reply_button_builder([_("❌ End Chat")], (1,))
+    await message.answer(
+        text=_("✅ Chat started! Now send your messages."),
+        reply_markup=markup
+    )
 
 
 @chat.message(States.send_messages)
 async def forward_messages(message: Message, state: FSMContext):
     data = await state.get_data()
-    chat1_user = data.get('chat1_user')
-    chat2_user = data.get('chat2_user')
-    username1=data.get('username1')
-    username2=data.get('username2')
-    if message.text == "❌ End Chat":
-        await message.answer(_("✅ End chat!"))
+    chat1_id = data.get('chat1_id')
+    chat2_id = data.get('chat2_id')
+    nickname1 = data.get('nickname1')
+    nickname2 = data.get('nickname2')
+    markup = await reply_button_builder([_('✅ Chat ended.')])
+    if message.text == _("❌ End Chat"):
+        await message.answer(text=_('✅ Conversation ended'), reply_markup=markup)
         await state.clear()
         return
-    if message.chat.id == chat1_user:
-            await bot.send_message(chat2_user, f"👥 {username1}:")
-            await bot.forward_message(chat2_user, chat1_user, message.message_id)
-    elif message.chat.id == chat2_user:
-            await bot.send_message(chat1_user, f"👥 {username2}:")
-            await bot.forward_message(chat1_user, chat2_user, message.message_id)
-    messages={
-        'from_chat_id':chat1_user,
-        'to_chat_id':chat2_user,
-        'message_id':message.message_id,
-        'text':message.text
-    }
-    m.save(messages)
+
+    if message.chat.id == chat1_id:
+        await bot.send_message(chat2_id, f"🧑‍💬 {nickname1}:\n{message.text}")
+        await bot.forward_message(chat2_id, chat1_id, message.message_id)
+    elif message.chat.id == chat2_id:
+        await bot.send_message(chat1_id, f"🧑‍💬 {nickname2}:\n{message.text}")
+        await bot.forward_message(chat1_id, chat2_id, message.message_id)
+
+    M.save(
+        from_chat_id=message.chat.id,
+        to_chat_id=chat2_id if message.chat.id == chat1_id else chat1_id,
+        message_id=message.message_id,
+        text=message.text
+    )
 
 
-#=============================================Search========================
+# =============================================Search========================
 @chat.inline_query()
 async def inline_query(inline: InlineQuery):
     query = inline.query.lower()
     result = []
-    users: list =  User.get_all(User.id,User.username)
+    users: list = User.get_all()
     print(users)
     for user in users:
-        if query in user.username.lower():
+        if query in user.name.lower():
             i = InlineQueryResultArticle(
                 id=str(f'👤{user.id}'),
-                title=user.username,
+                title=user.name,
+                description=user.city.name,
                 input_message_content=InputTextMessageContent(message_text=str(user.id)),
             )
             result.append(i)
     await inline.answer(result, cache_time=5, is_personal=True)
 
+
 @chat.message(F.via_bot)
 async def any_text(message: Message):
     user_id = int(message.text)
     await message.delete()
-    await message.answer(text=User.get(User.id,user_id,User.username))
-
-
+    user: User = User.get(User.id, user_id)
+    await message.answer(text=user.name)

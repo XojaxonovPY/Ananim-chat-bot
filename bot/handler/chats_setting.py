@@ -20,7 +20,7 @@ async def delete_user(message: Message, state: FSMContext):
         InlineKeyboardButton(text=_('✅Yes'), callback_data='yes'),
         InlineKeyboardButton(text=_('❌NO'), callback_data='no')
     ]
-    markup = inline_button_builder(text)
+    markup = await inline_button_builder(text)
     await message.answer(text=_('Do you delete your chat?'), reply_markup=markup)
 
 
@@ -39,8 +39,8 @@ async def user_not_deleted(callback: CallbackQuery):
 @chat_settings.message(Command('my_own'))
 async def get_user(message: Message):
     user_id = message.from_user.id
-    user:User = User.get(User.user_id,user_id)
-    information=f'Name: {user.name}\nGender: {user.gender}\nCity: {user.city.name}'
+    user: User = User.get(User.user_id, user_id)
+    information = f'Name: {user.name}\nGender: {user.gender}\nCity: {user.city.name}'
     if user:
         await message.answer(text=information)
     else:

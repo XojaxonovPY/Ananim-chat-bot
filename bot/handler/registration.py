@@ -30,7 +30,7 @@ async def username_handler(message: Message, state: FSMContext):
     text = [_('🧑 Man'), _('👩‍🦰 Women')]
     await state.update_data(username=username)
     await state.set_state(States.gender)
-    markup = reply_button_builder(text, (2,))
+    markup = await reply_button_builder(text, (2,))
     await message.answer(text=_('Enter gender:'), reply_markup=markup)
 
 
@@ -40,7 +40,7 @@ async def gender_handler(message: Message, state: FSMContext):
     await state.update_data(gender=gender)
     cities: list[City] = City.get_all()
     buttons = [InlineKeyboardButton(text=i.name, callback_data=f'city_{i.id}') for i in cities]
-    markup = inline_button_builder(buttons, [2] * (len(cities) // 2))
+    markup = await inline_button_builder(buttons, [2] * (len(cities) // 2))
     await message.answer(text=_('Enter city:'), reply_markup=markup)
 
 
@@ -50,12 +50,12 @@ async def city_handler(callback: CallbackQuery, state: FSMContext):
     city = int(callback.data.split('_')[1])
     data = await state.get_data()
 
-    markup = reply_button_builder(texts, (2,))
+    markup = await reply_button_builder(texts, (2,))
     users = {
         'user_id': callback.message.chat.id,
         'name': data.get('username'),
         'gender': data.get('gender'),
-        'username': callback.message.from_user.username,
+        'username': callback.message.chat.username,
         'city_id': city,
     }
     User.save(**users)

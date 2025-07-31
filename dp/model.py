@@ -18,6 +18,9 @@ class User(Base, CRUD):
     chat=relationship('Chat',back_populates='user')
     username:Mapped[str] = mapped_column(String(100), nullable=False)
 
+    def __str__(self):
+        return self.name
+
 
 
 class City(Base, CRUD):
@@ -42,6 +45,7 @@ class Chat(Base, CRUD):
     chat_2_id: Mapped[int] = mapped_column(BIGINT, nullable=False)
     users_id:Mapped[int]=mapped_column(Integer,ForeignKey('users.id'))
     user=relationship('User',back_populates='chat')
+
 
 class Message(Base, CRUD):
     __tablename__ = 'messages'
