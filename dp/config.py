@@ -50,6 +50,8 @@ class CRUD:
     def get(cls, filter_column, filter_value, all=False):
         with SessionLocal() as session:
             query = session.query(cls).filter(filter_column == filter_value)
+            if not query:
+                return None
             if all:
                 return query.all()
             return query.first()
@@ -58,4 +60,6 @@ class CRUD:
     def get_all(cls):
         with SessionLocal() as session:
             query = session.query(cls)
+            if not query:
+                return []
             return query.all()
