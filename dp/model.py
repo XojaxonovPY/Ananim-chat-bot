@@ -1,6 +1,7 @@
-from dp.config import Base, DB, CRUD, SessionLocal
-from sqlalchemy import Integer, String, ForeignKey, Text, BIGINT, TIMESTAMP, func, select
-from sqlalchemy.orm import Mapped, mapped_column, relationship, Session, sessionmaker
+from sqlalchemy import Integer, String, ForeignKey, Text, BIGINT, TIMESTAMP, func
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from dp.config import Base, DB, CRUD
 
 engine = DB.engine
 
