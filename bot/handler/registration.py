@@ -13,15 +13,15 @@ from aiogram.utils.i18n import lazy_gettext as __
 register = Router()
 
 
-@register.message(F.text == __('Registration'))
+@register.message(F.text == __('📋 Registration'))
 async def register_handler(message: Message, state: FSMContext):
     user_id = message.chat.id
     check = User.get(User.user_id, user_id)
     if check:
-        await message.answer(text=_('You are already registered'))
+        await message.answer(text=_('✅ You are already registered'))
         return
     await state.set_state(States.username)
-    await message.answer(text=_("Enter username:"))
+    await message.answer(text=_("✅ Enter username:"))
 
 
 @register.message(States.username)
@@ -31,7 +31,7 @@ async def username_handler(message: Message, state: FSMContext):
     await state.update_data(username=username)
     await state.set_state(States.gender)
     markup = await reply_button_builder(text, (2,))
-    await message.answer(text=_('Enter gender:'), reply_markup=markup)
+    await message.answer(text=_('✅ Enter gender:'), reply_markup=markup)
 
 
 @register.message(States.gender)
@@ -41,12 +41,12 @@ async def gender_handler(message: Message, state: FSMContext):
     cities: list[City] = City.get_all()
     buttons = [InlineKeyboardButton(text=i.name, callback_data=f'city_{i.id}') for i in cities]
     markup = await inline_button_builder(buttons, [2] * (len(cities) // 2))
-    await message.answer(text=_('Enter city:'), reply_markup=markup)
+    await message.answer(text=_('✅ Enter city:'), reply_markup=markup)
 
 
 @register.callback_query(F.data.startswith('city_'))
 async def city_handler(callback: CallbackQuery, state: FSMContext):
-    texts = [_('◀️ Back'), _('💬 Chats')]
+    texts = [_('◀️Main back'), _('💬 Chats')]
     city = int(callback.data.split('_')[1])
     data = await state.get_data()
 
@@ -60,4 +60,4 @@ async def city_handler(callback: CallbackQuery, state: FSMContext):
     }
     User.save(**users)
     await state.clear()
-    await callback.message.answer(text=_('Data saved'), reply_markup=markup)
+    await callback.message.answer(text=_('✅ Data saved'), reply_markup=markup)

@@ -17,7 +17,7 @@ chat = Router()
 bot = Bot(token=BotConfig.TOKEN)
 
 
-@chat.message(F.text.in_([__('💬 My chat'), __('💬 Chats'), __('◀️ Main back'), __('✅ Chat ended.')]))
+@chat.message(F.text.in_([__('💬 My chat'), __('💬 Chats'), __('◀️ Back'), __('✅ Chat ended.')]))
 async def chat_handler(message: Message, state: FSMContext):
     query = User.get(User.user_id, message.chat.id)
     if not query:
@@ -27,17 +27,17 @@ async def chat_handler(message: Message, state: FSMContext):
 
     buttons = [InlineKeyboardButton(text=_('🔎 Search'), switch_inline_query_current_chat='')]
     markup_inline = await inline_button_builder(buttons)
-    markup_reply = await reply_button_builder([_('🇺🇿 City'), _('👥 Send message user'), _('◀️ Back')], (3,))
+    markup_reply = await reply_button_builder([_('🇺🇿 City'), _('👥 Send message user'), _('◀️ Main back')], (3,))
 
-    await message.answer(text=_('Search users'), reply_markup=markup_inline)
+    await message.answer(text=_('Search users:'), reply_markup=markup_inline)
     await message.answer(text=_('✅ Main menu:'), reply_markup=markup_reply)
 
 
 @chat.message(F.text == __('👥 Send message user'))
 async def username_handler(message: Message, state: FSMContext):
-    markup = await reply_button_builder(['◀️ Main back'], (1,))
+    markup = await reply_button_builder([_('◀️ Main back')], (1,))
     await state.set_state(States.chat_user)
-    await message.answer(text=_('Enter username:'), reply_markup=markup)
+    await message.answer(text=_('✅ Enter username:'), reply_markup=markup)
 
 
 @chat.message(States.chat_user)
@@ -60,7 +60,6 @@ async def user_check(message: Message, state: FSMContext):
     )
     await state.set_state(States.send_messages)
 
-    # Chat yozish (ixtiyoriy)
     Chat.save(
         chat_1_id=user1.user_id,
         chat_2_id=user2.user_id,
@@ -86,14 +85,12 @@ async def forward_messages(message: Message, state: FSMContext):
         await message.answer(text=_('✅ Conversation ended'), reply_markup=markup)
         await state.clear()
         return
-
     if message.chat.id == chat1_id:
         await bot.send_message(chat2_id, f"🧑‍💬 {nickname1}:\n{message.text}")
         await bot.forward_message(chat2_id, chat1_id, message.message_id)
     elif message.chat.id == chat2_id:
         await bot.send_message(chat1_id, f"🧑‍💬 {nickname2}:\n{message.text}")
         await bot.forward_message(chat1_id, chat2_id, message.message_id)
-
     M.save(
         from_chat_id=message.chat.id,
         to_chat_id=chat2_id if message.chat.id == chat1_id else chat1_id,

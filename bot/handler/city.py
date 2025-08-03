@@ -11,7 +11,7 @@ from dp.model import City, User
 region = Router()
 
 
-@region.message(F.text.in_([__('🇺🇿 City'), __('◀️City back')]))
+@region.message(F.text == __('🇺🇿 City'))
 async def regions_handler(message: Message):
     cities = City.get_all()
     if not cities:
@@ -29,7 +29,7 @@ async def city_selected(callback: CallbackQuery):
     users: list[User] = User.get(User.city_id, city_id, all=True)
     buttons = [InlineKeyboardButton(text=i.name, callback_data=f'user_{i.id}') for i in users]
     markup = await inline_button_builder(buttons, [2] * len(buttons))
-    await callback.message.answer(text='Chose users:', reply_markup=markup)
+    await callback.message.answer(text=_('✅ Chose users:'), reply_markup=markup)
 
 
 @region.callback_query(F.data.startswith("user_"))
@@ -39,4 +39,4 @@ async def movie_choice(callback: CallbackQuery):
     markup = await reply_button_builder(text)
     user: User = User.get(User.id, user_id)
     name_text = f"<code>{user.name}</code>"
-    await callback.message.answer(text=f"User: {name_text}", reply_markup=markup, parse_mode="HTML")
+    await callback.message.answer(text=f"✅ User: {name_text}", reply_markup=markup, parse_mode="HTML")
