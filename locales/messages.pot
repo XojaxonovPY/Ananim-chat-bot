@@ -1,0 +1,171 @@
+# Translations template for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-08-03 16:12+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
+
+#: bot/handler/chats.py:25
+msgid "Register first"
+msgstr ""
+
+#: bot/handler/chats.py:28
+msgid "🔎 Search"
+msgstr ""
+
+#: bot/handler/chats.py:30
+msgid "🇺🇿 City"
+msgstr ""
+
+#: bot/handler/chats.py:30 bot/handler/city.py:38
+msgid "👥 Send message user"
+msgstr ""
+
+#: bot/handler/chats.py:30 bot/handler/chats.py:38
+msgid "◀️ Main back"
+msgstr ""
+
+#: bot/handler/chats.py:32
+msgid "Search users:"
+msgstr ""
+
+#: bot/handler/chats.py:33
+msgid "✅ Main menu:"
+msgstr ""
+
+#: bot/handler/chats.py:40 bot/handler/registration.py:24
+msgid "✅ Enter username:"
+msgstr ""
+
+#: bot/handler/chats.py:52
+msgid "🚫 No such user found!"
+msgstr ""
+
+#: bot/handler/chats.py:69 bot/handler/chats.py:84
+msgid "❌ End Chat"
+msgstr ""
+
+#: bot/handler/chats.py:71
+msgid "✅ Chat started! Now send your messages."
+msgstr ""
+
+#: bot/handler/chats.py:83
+msgid "✅ Chat ended."
+msgstr ""
+
+#: bot/handler/chats.py:85
+msgid "✅ Conversation ended"
+msgstr ""
+
+#: bot/handler/chats_setting.py:20
+msgid "✅Yes"
+msgstr ""
+
+#: bot/handler/chats_setting.py:21
+msgid "❌NO"
+msgstr ""
+
+#: bot/handler/chats_setting.py:24
+msgid "Do you delete your chat?"
+msgstr ""
+
+#: bot/handler/chats_setting.py:31
+msgid "✅ Chat is deleted"
+msgstr ""
+
+#: bot/handler/chats_setting.py:36
+msgid "✅ Thanks for staying on our channel!"
+msgstr ""
+
+#: bot/handler/chats_setting.py:47
+msgid "No information"
+msgstr ""
+
+#: bot/handler/chats_setting.py:49
+msgid "Datas fetched"
+msgstr ""
+
+#: bot/handler/city.py:18
+msgid "🚫 No cities found."
+msgstr ""
+
+#: bot/handler/city.py:23
+msgid "🌆 Choose a city:"
+msgstr ""
+
+#: bot/handler/city.py:32
+msgid "✅ Chose users:"
+msgstr ""
+
+#: bot/handler/main_handler.py:20 bot/handler/main_handler.py:47
+msgid "📋 Registration"
+msgstr ""
+
+#: bot/handler/main_handler.py:20 bot/handler/main_handler.py:47
+msgid "🇷🇺 🇺🇿 🇬🇧 Language"
+msgstr ""
+
+#: bot/handler/main_handler.py:20 bot/handler/main_handler.py:47
+msgid "💬 My chat"
+msgstr ""
+
+#: bot/handler/main_handler.py:22 bot/handler/main_handler.py:49
+msgid "✅ Welcome chat bot"
+msgstr ""
+
+#: bot/handler/main_handler.py:27
+msgid "◀️ Back"
+msgstr ""
+
+#: bot/handler/main_handler.py:30
+msgid "✅ Chose language:"
+msgstr ""
+
+#: bot/handler/main_handler.py:66
+msgid "✅ Quydagi kannalarga obuna bo'l"
+msgstr ""
+
+#: bot/handler/registration.py:21
+msgid "✅ You are already registered"
+msgstr ""
+
+#: bot/handler/registration.py:30
+msgid "🧑 Man"
+msgstr ""
+
+#: bot/handler/registration.py:30
+msgid "👩‍🦰 Women"
+msgstr ""
+
+#: bot/handler/registration.py:34
+msgid "✅ Enter gender:"
+msgstr ""
+
+#: bot/handler/registration.py:44
+msgid "✅ Enter city:"
+msgstr ""
+
+#: bot/handler/registration.py:49
+msgid "◀️Main back"
+msgstr ""
+
+#: bot/handler/registration.py:49
+msgid "💬 Chats"
+msgstr ""
+
+#: bot/handler/registration.py:63
+msgid "✅ Data saved"
+msgstr ""
+
